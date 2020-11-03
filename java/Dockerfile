@@ -17,14 +17,12 @@ RUN yum install openssh-clients -y
 RUN mkdir -p /usr/share/maven && curl -fsSL -o /tmp/apache-maven.tar.gz https://downloads.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz \
     && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 && rm -f /tmp/apache-maven.tar.gz && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 ENV M2_HOME /usr/share/maven
-
-
 #Copy maven settings.xml file (This is optional and comment it if not needed)
 #COPY settings.xml /root/.m2/
 
 #Install SonarScanner Cli (https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216.zip)
 RUN  mkdir -p /usr/share/sonar-scanner-cli && curl -fsSL -o /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216.zip \
-     && unzip /tmp/sonar-scanner-cli.zip -d /tmp && mv /tmp/sonar-scanner-4.5.0.2216  /usr/share/sonar-scanner-cli && rm -f /tmp/sonar-scanner-cli.zip \
+     && unzip /tmp/sonar-scanner-cli.zip -d /tmp && mv /tmp/sonar-scanner-4.5.0.2216/*  /usr/share/sonar-scanner-cli && rm -f /tmp/sonar-scanner-cli.zip \
   && ln -s /usr/share/sonar-scanner-cli/bin/sonar-scanner /usr/bin/sonar-scanner  
    
 
