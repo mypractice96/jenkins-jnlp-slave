@@ -21,4 +21,25 @@ echo -n 'repousername:password' | base64
 ```
 
 
+### Sample Jenkins Pipeline
+
+```
+pipeline {
+    agent {label 'java-kaniko-slave'}
+
+    stages {
+        stage('Hello') {
+            steps {
+            
+                git branch: 'main', url: 'https://github.com/mypractice96/spring-mvc-sample.git'
+                sh 'mvn clean install'                
+                sh 'executor --dockerfile=Dockerfile --context=$(pwd) --destination=mypractice96/springmvcsample:kaniko'
+                
+            }
+        }
+    }
+}
+```
+
+
 
